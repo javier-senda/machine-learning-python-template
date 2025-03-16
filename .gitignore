@@ -1,3 +1,7 @@
 __pycache__
 .env
 .learn
+
+neighbourhood_transformation_rules.json
+room_type_transformation_rules.json
+neighbourhood_group_transformation_rules.json
