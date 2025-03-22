@@ -333,8 +333,6 @@ ix = selection_model.get_support()
 X_train_sel = pd.DataFrame(selection_model.transform(X_train_con_outliers_scal), columns = X_train_con_outliers_scal.columns.values[ix])
 X_test_sel = pd.DataFrame(selection_model.transform(X_test_con_outliers_scal), columns = X_test_con_outliers_scal.columns.values[ix])
 
-import json
-
 with open("feature_selection_k_5.json", "w") as f:
     json.dump(X_train_sel.columns.tolist(), f)
 
