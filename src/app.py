@@ -336,9 +336,6 @@ X_test_sel = pd.DataFrame(selection_model.transform(X_test_con_outliers_scal), c
 with open("feature_selection_k_5.json", "w") as f:
     json.dump(X_train_sel.columns.tolist(), f)
 
-X_train_sel.head()
-X_test_sel.head()
-
 X_train_sel["Survived"] = list(y_train)
 X_test_sel["Survived"] = list(y_test)
 
