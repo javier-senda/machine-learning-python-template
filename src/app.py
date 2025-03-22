@@ -11,6 +11,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
 from sklearn.preprocessing import MinMaxScaler
 from sklearn.feature_selection import f_classif, SelectKBest
+import pickle
 
 # Importar el dataset
 
@@ -257,53 +258,65 @@ y_test.to_excel("../data/processed/y_test.xlsx", index = False)
 
 ## Normalización
 
-from sklearn.preprocessing import StandardScaler
+normalizador_con_outliers = StandardScaler()
+normalizador_con_outliers.fit(X_train_con_outliers)
 
-scaler_con_outliers = StandardScaler()
-scaler_con_outliers.fit(X_train_con_outliers)
+with open("../models/normalizador_con_outliers.pkl", "wb") as file:
+    pickle.dump(normalizador_con_outliers,file)
 
-X_train_con_outliers_norm = scaler_con_outliers.transform(X_train_con_outliers)
+X_train_con_outliers_norm = normalizador_con_outliers.transform(X_train_con_outliers)
 X_train_con_outliers_norm = pd.DataFrame(X_train_con_outliers_norm, index = X_train_con_outliers.index, columns = num_variables)
 
-X_test_con_outliers_norm = scaler_con_outliers.transform(X_test_con_outliers)
+X_test_con_outliers_norm = normalizador_con_outliers.transform(X_test_con_outliers)
 X_test_con_outliers_norm = pd.DataFrame(X_test_con_outliers_norm, index = X_test_con_outliers.index, columns = num_variables)
 
 X_train_con_outliers_norm.to_excel("../data/processed/X_train_con_outliers_norm.xlsx", index = False)
 X_test_con_outliers_norm.to_excel("../data/processed/X_test_con_outliers_norm.xlsx", index = False)
 
-scaler_sin_outliers = StandardScaler()
-scaler_sin_outliers.fit(X_train_sin_outliers)
+normalizador_sin_outliers = StandardScaler()
+normalizador_sin_outliers.fit(X_train_sin_outliers)
 
-X_train_sin_outliers_norm = scaler_sin_outliers.transform(X_train_sin_outliers)
+with open("../models/normalizador_sin_outliers.pkl", "wb") as file:
+    pickle.dump(normalizador_sin_outliers,file)
+
+X_train_sin_outliers_norm = normalizador_sin_outliers.transform(X_train_sin_outliers)
 X_train_sin_outliers_norm = pd.DataFrame(X_train_sin_outliers_norm, index = X_train_sin_outliers.index, columns = num_variables)
 
-X_test_sin_outliers_norm = scaler_sin_outliers.transform(X_test_sin_outliers)
+X_test_sin_outliers_norm = normalizador_sin_outliers.transform(X_test_sin_outliers)
 X_test_sin_outliers_norm = pd.DataFrame(X_test_sin_outliers_norm, index = X_test_sin_outliers.index, columns = num_variables)
 
 X_train_sin_outliers_norm.to_excel("../data/processed/X_train_sin_outliers_norm.xlsx", index = False)
 X_test_sin_outliers_norm.to_excel("../data/processed/X_test_sin_outliers_norm.xlsx", index = False)
 
+X_train_con_outliers_norm.head()
+
 ## Escalado min-max
 
-scaler_con_outliers = MinMaxScaler()
-scaler_con_outliers.fit(X_train_con_outliers)
+min_max_con_outliers = MinMaxScaler()
+min_max_con_outliers.fit(X_train_con_outliers)
 
-X_train_con_outliers_scal = scaler_con_outliers.transform(X_train_con_outliers)
+with open("../models/min_max_con_outliers.pkl", "wb") as file:
+    pickle.dump(min_max_con_outliers,file)
+
+X_train_con_outliers_scal = min_max_con_outliers.transform(X_train_con_outliers)
 X_train_con_outliers_scal = pd.DataFrame(X_train_con_outliers_scal, index = X_train_con_outliers.index, columns = num_variables)
 
-X_test_con_outliers_scal = scaler_con_outliers.transform(X_test_con_outliers)
+X_test_con_outliers_scal = min_max_con_outliers.transform(X_test_con_outliers)
 X_test_con_outliers_scal = pd.DataFrame(X_test_con_outliers_scal, index = X_test_con_outliers.index, columns = num_variables)
 
 X_train_con_outliers_scal.to_excel("../data/processed/X_train_con_outliers_scal.xlsx", index = False)
 X_test_con_outliers_scal.to_excel("../data/processed/X_test_con_outliers_scal.xlsx", index = False)
 
-scaler_sin_outliers = StandardScaler()
-scaler_sin_outliers.fit(X_train_sin_outliers)
+min_max_sin_outliers = MinMaxScaler()
+min_max_sin_outliers.fit(X_train_sin_outliers)
 
-X_train_sin_outliers_scal = scaler_sin_outliers.transform(X_train_sin_outliers)
+with open("../models/min_max_sin_outliers.pkl", "wb") as file:
+    pickle.dump(min_max_sin_outliers,file)
+
+X_train_sin_outliers_scal = min_max_sin_outliers.transform(X_train_sin_outliers)
 X_train_sin_outliers_scal = pd.DataFrame(X_train_sin_outliers_scal, index = X_train_sin_outliers.index, columns = num_variables)
 
-X_test_sin_outliers_scal = scaler_sin_outliers.transform(X_test_sin_outliers)
+X_test_sin_outliers_scal = min_max_sin_outliers.transform(X_test_sin_outliers)
 X_test_sin_outliers_scal = pd.DataFrame(X_test_sin_outliers_scal, index = X_test_sin_outliers.index, columns = num_variables)
 
 X_train_sin_outliers_scal.to_excel("../data/processed/X_train_sin_outliers_scal.xlsx", index = False)
