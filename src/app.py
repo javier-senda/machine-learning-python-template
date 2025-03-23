@@ -217,7 +217,7 @@ def replace_outliers_from_column(column, df):
   column_iqr = column_stats["75%"] - column_stats["25%"]
   upper_limit = column_stats["75%"] + 1.5 * column_iqr
   lower_limit = column_stats["25%"] - 1.5 * column_iqr
-  
+
   if lower_limit < 0 : lower_limit = 0
   # Remove upper outliers
   df[column] = df[column].apply(lambda x: x if (x <= upper_limit) else upper_limit)
@@ -226,7 +226,7 @@ def replace_outliers_from_column(column, df):
   return df.copy(), [lower_limit, upper_limit]
 
 outliers_dict = {}
-for column in ["price", "minimum_nights", "number_of_reviews", "calculated_host_listings_count"]:
+for column in total_data_sin_outliers:
   total_data_sin_outliers, limits_list = replace_outliers_from_column(column, total_data_sin_outliers)
   outliers_dict[column] = limits_list
 
