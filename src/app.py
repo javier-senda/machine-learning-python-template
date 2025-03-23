@@ -217,6 +217,8 @@ def replace_outliers_from_column(column, df):
   column_iqr = column_stats["75%"] - column_stats["25%"]
   upper_limit = column_stats["75%"] + 1.5 * column_iqr
   lower_limit = column_stats["25%"] - 1.5 * column_iqr
+  
+  if lower_limit < 0 : lower_limit = 0
   # Remove upper outliers
   df[column] = df[column].apply(lambda x: x if (x <= upper_limit) else upper_limit)
   # Remove lower outliers
